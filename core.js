@@ -22,3 +22,22 @@ var isStart = false //是否开始
 var timer //游戏刷新频率的定时器
 
 var allowCrashSlef = true //允许穿过自身，当前为预留字段
+
+//克隆方法 浅层克隆
+function clone(obj){
+    return JSON.parse(JSON.stringify(obj))
+}
+
+//初始化地板
+function initSquareSet(){
+  var squareSet = new Array(25)
+  for(var i = 0;i < squareSet.length;i++){
+    
+  }
+}
+
+//页面加载完成
+window.onload = function () {
+  chessBoard = document.getElementById('chessBoard')
+  initSquareSet()
+}
