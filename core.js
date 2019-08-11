@@ -42,11 +42,7 @@ function initSquareSet() {
 }
 //构建蛇的模型
 function Snake(headX, headY, firstDirection, length, bgcolor) {
-    this.headX = headX
-    this.headY = headY
-    this.firstDirection = firstDirection
-    this.length = length
-    this.bgcolor = bgcolor
+    
 }
 //初始化蛇
 function initSnake() {
