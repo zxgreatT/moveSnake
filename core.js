@@ -15,6 +15,7 @@ var toward = {
   RIGHT: { x: 1, y: 0 }
 }
 
+
 var frame = 40 //刷新频率,1秒40次
 var is3D = false
 var hasAI = false
@@ -42,7 +43,7 @@ function initSquareSet() {
 }
 //构建蛇的模型
 function Snake(headX, headY, nowToward, length, bgColor) {
-  console.log(11)
+  
   this.snakebody = []
   this.nowToward = nowToward
   this.headMoveX = nowToward.x
@@ -58,7 +59,9 @@ function Snake(headX, headY, nowToward, length, bgColor) {
     if(this.snakebody.length == 0){
       ball = createBall(headX, headY, '&nbsp;', bgColor)
     } else {
-      // ball = createBall()
+      var lastbody = this.snakebody[this.snakebody.length - 1]
+      ball = createBall(lastbody.lx + (-1) * this.nowToward.x * 20, lastbody.ly + (-1) * this.nowToward.y,
+      '&nbsp;', bgColor)
     }
     this.snakebody.push(ball)
   }
@@ -67,7 +70,7 @@ function Snake(headX, headY, nowToward, length, bgColor) {
 
 //创建蛇身体的小球
 function createBall(x, y, text, bgColor, fgColor) {
-  console.log(11)
+  
   var ball = document.createElement("div")
   ball.classList.add("ball")
   ball.style.left = x + "px"
@@ -76,19 +79,46 @@ function createBall(x, y, text, bgColor, fgColor) {
   ball.ly = y
   ball.style.background = bgColor
   chessBoard.appendChild(ball)
+  return ball
 }
 
 //初始化蛇
 function initSnake() {
   //初始化玩家的蛇
-  var main = new Snake(80, 0, toward.RIGHT, 3, mainSnakeColor)
+  var main = new Snake(80, 0, toward.RIGHT, 5, mainSnakeColor)
   mainSnake = main
   snake.push(main)
 }
+//重绘
+function repaint() {
+  for(var i = 0;i < snake.length;i++){
+    for(var j = 0;j < snake[i].snakebody.length;j++){
+      snake[i].snakebody[j].style.left = snake[i].snakebody[j].lx + 'px'
+      snake[i].snakebody[j].style.top = snake[i].snakebody[j].ly + 'px'
+    }
+    snake[i].snakebody[0].innerHTML = '囧'
+  }
+}
 
+//蛇的移动
+function move() {
+  for(var i = 0;i < snake.length;i++){
+    for(var j = 0;j < snake[i].snakebody.length;j++){
+      snake[i].snakebody[j].lx += snake[i].headMoveX
+      snake[i].snakebody[j].ly += snake[i].headMoveY
+    }
+  }
+  repaint()
+} 
+//开始
+function start() {
+  timer = setInterval(() => {
+    move()
+  }, 1000 / frame);
+}
 //页面加载完成
 window.onload = function () {
-  console.log(11)
+  
   chessBoard = document.getElementById('chess_board')
   initSquareSet()
   initSnake()

@@ -30,10 +30,14 @@
     height: 20px;
     left: 0px;
     top: 0px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 50%;
     /*transform: skew(45deg);*/
     perspective: 1000px;
     /*background: lightgray;*/
+    font-size: 14px;
+    text-align: center;
+    visibility: center;
 }
 
 .over_circle {
